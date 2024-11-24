@@ -27,13 +27,13 @@ if (isset($_POST['submit'])) {
     } else {
         // Simpan data peserta baru
         $sql = "INSERT INTO peserta (jadwal, nik, nama, berat_badan, tinggi_badan, gender) VALUES ('$jadwal','$nik', '$nama', '$berat_badan', '$tinggi_badan', '$gender')";
-        $hasil = mysqli_query($kon, $sql);
+        $hasil = mysqli_query($conn, $sql);
     
         // Ambil nilai minimum dan maksimum tinggi dan berat seluruh peserta
         $sqlMinMax = "SELECT MIN(tinggi_badan) AS min_tinggi, MAX(tinggi_badan) AS max_tinggi, 
                              MIN(berat_badan) AS min_berat, MAX(berat_badan) AS max_berat 
                       FROM peserta";
-        $resultMinMax = mysqli_query($kon, $sqlMinMax);
+        $resultMinMax = mysqli_query($conn, $sqlMinMax);
         $minMax = mysqli_fetch_assoc($resultMinMax);
     
         $minTinggi = $minMax['min_tinggi'];
@@ -43,7 +43,7 @@ if (isset($_POST['submit'])) {
     
         // Update status gizi seluruh peserta
         $sqlPeserta = "SELECT * FROM peserta";
-        $resultPeserta = mysqli_query($kon, $sqlPeserta);
+        $resultPeserta = mysqli_query($conn, $sqlPeserta);
     
         while ($peserta = mysqli_fetch_assoc($resultPeserta)) {
             $tinggi = $peserta['tinggi_badan'];
@@ -74,7 +74,7 @@ if (isset($_POST['submit'])) {
     
             // Update status gizi di database
             $sqlUpdate = "UPDATE peserta SET status='$statusGizi' WHERE nik='{$peserta['nik']}'";
-            mysqli_query($kon, $sqlUpdate);
+            mysqli_query($conn, $sqlUpdate);
         }
     
         // Redirect ke halaman kelola

@@ -138,12 +138,12 @@
                             $selesai = $_POST['tgl_selesai'];
                             
                             if($mulai!=null || $selesai!=null){
-                                $hasil = mysqli_query($kon, "SELECT * FROM peserta WHERE jadwal BETWEEN '".$mulai."' and '".$selesai."' ORDER BY id_peserta ASC");
+                                $hasil = mysqli_query($conn, "SELECT * FROM peserta WHERE jadwal BETWEEN '".$mulai."' and '".$selesai."' ORDER BY id_peserta ASC");
                             } else {
-                                $hasil = mysqli_query($kon, "SELECT * FROM peserta ORDER BY id_peserta ASC");
+                                $hasil = mysqli_query($conn, "SELECT * FROM peserta ORDER BY id_peserta ASC");
                             }
                         } else {
-                            $hasil = mysqli_query($kon, "SELECT * FROM peserta ORDER BY id_peserta ASC");
+                            $hasil = mysqli_query($conn, "SELECT * FROM peserta ORDER BY id_peserta ASC");
                         }
                         
                         

@@ -1,5 +1,5 @@
 <?php
-    require('koneksi2.php');
+    require('koneksi.php');
     session_start();
 
     if(isset($_GET['token'])){

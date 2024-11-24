@@ -28,13 +28,13 @@ if (isset($_POST['update'])) {
     } else {
         // Update data peserta
         $sql = "UPDATE peserta SET jadwal='$jadwal', nama='$nama', berat_badan='$berat_badan', tinggi_badan='$tinggi_badan', gender='$gender' WHERE nik='$nik'";
-        $hasil = mysqli_query($kon, $sql);
+        $hasil = mysqli_query($conn, $sql);
     
         if ($hasil) {
             // Query to get min and max values for height and weight
             $sqlMinMax = "SELECT MIN(tinggi_badan) AS min_tinggi, MAX(tinggi_badan) AS max_tinggi, 
                           MIN(berat_badan) AS min_berat, MAX(berat_badan) AS max_berat FROM peserta";
-            $resultMinMax = mysqli_query($kon, $sqlMinMax);
+            $resultMinMax = mysqli_query($conn, $sqlMinMax);
             $minMax = mysqli_fetch_assoc($resultMinMax);
     
             $minTinggi = $minMax['min_tinggi'];
@@ -44,7 +44,7 @@ if (isset($_POST['update'])) {
     
             // Loop through all participants and calculate nutrition status
             $sqlPeserta = "SELECT * FROM peserta";
-            $resultPeserta = mysqli_query($kon, $sqlPeserta);
+            $resultPeserta = mysqli_query($conn, $sqlPeserta);
     
             while ($peserta = mysqli_fetch_assoc($resultPeserta)) {
                 $tinggi = $peserta['tinggi_badan'];
@@ -76,14 +76,14 @@ if (isset($_POST['update'])) {
     
                 // Update nutrition status in the database
                 $sqlUpdate = "UPDATE peserta SET status='$statusGizi' WHERE nik='{$peserta['nik']}'";
-                mysqli_query($kon, $sqlUpdate);
+                mysqli_query($conn, $sqlUpdate);
             }
     
             // Redirect to index.php
             header("Location: kelola.php");
         
         } else {
-            echo "<div class='alert alert-danger'>Data gagal disimpan: " . mysqli_error($kon) . "</div>";
+            echo "<div class='alert alert-danger'>Data gagal disimpan: " . mysqli_error($conn) . "</div>";
         }
     }
 

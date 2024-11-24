@@ -124,7 +124,7 @@ const data = {
             $statuses = ['Gizi Buruk', 'Gizi Kurang', 'Gizi Baik', 'Gizi Lebih', 'Obesitas'];
             $dataPoints = [];
             foreach ($statuses as $status) {
-                $qry = $kon->query("SELECT * FROM peserta WHERE status='$status'");
+                $qry = $conn->query("SELECT * FROM peserta WHERE status='$status'");
                 $dataPoints[] = $qry->num_rows;
             }
             echo implode(",", $dataPoints);
@@ -172,7 +172,7 @@ const myChart = new Chart(
         $tahun = isset($_GET['tahun']) ? $_GET['tahun'] : date('Y');
 
         // Data untuk Gizi Buruk
-        $qryGiziBuruk = $kon->query("
+        $qryGiziBuruk = $conn->query("
             SELECT MONTH(jadwal) AS bulan, COUNT(*) AS jumlah 
             FROM peserta 
             WHERE status='Gizi Buruk' AND YEAR(jadwal)='$tahun'
@@ -184,7 +184,7 @@ const myChart = new Chart(
         }
 
         // Data untuk Gizi Kurang
-        $qryGiziKurang = $kon->query("
+        $qryGiziKurang = $conn->query("
             SELECT MONTH(jadwal) AS bulan, COUNT(*) AS jumlah 
             FROM peserta 
             WHERE status='Gizi Kurang' AND YEAR(jadwal)='$tahun'
@@ -196,7 +196,7 @@ const myChart = new Chart(
         }
 
         // Data untuk Gizi Baik
-        $qryGiziBaik = $kon->query("
+        $qryGiziBaik = $conn->query("
             SELECT MONTH(jadwal) AS bulan, COUNT(*) AS jumlah 
             FROM peserta 
             WHERE status='Gizi Baik' AND YEAR(jadwal)='$tahun'
@@ -208,7 +208,7 @@ const myChart = new Chart(
         }
 
         // Data untuk Gizi Lebih
-        $qryGiziLebih = $kon->query("
+        $qryGiziLebih = $conn->query("
             SELECT MONTH(jadwal) AS bulan, COUNT(*) AS jumlah 
             FROM peserta 
             WHERE status='Gizi Lebih' AND YEAR(jadwal)='$tahun'
@@ -220,7 +220,7 @@ const myChart = new Chart(
         }
 
         // Data untuk Obesitas
-        $qryObesitas = $kon->query("
+        $qryObesitas = $conn->query("
             SELECT MONTH(jadwal) AS bulan, COUNT(*) AS jumlah 
             FROM peserta 
             WHERE status='Obesitas' AND YEAR(jadwal)='$tahun'
@@ -310,7 +310,7 @@ const myChart = new Chart(
         $tahun = isset($_GET['tahun']) ? $_GET['tahun'] : date('Y');
 
         // Data untuk Perempuan
-        $qryPerempuan = $kon->query("
+        $qryPerempuan = $conn->query("
             SELECT MONTH(jadwal) AS bulan, COUNT(*) AS jumlah 
             FROM peserta 
             WHERE gender='Perempuan' AND YEAR(jadwal)='$tahun'
@@ -322,7 +322,7 @@ const myChart = new Chart(
         }
 
         // Data untuk Laki-Laki
-        $qryLakiLaki = $kon->query("
+        $qryLakiLaki = $conn->query("
             SELECT MONTH(jadwal) AS bulan, COUNT(*) AS jumlah 
             FROM peserta 
             WHERE gender='Laki-Laki' AND YEAR(jadwal)='$tahun'

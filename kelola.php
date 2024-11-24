@@ -57,12 +57,12 @@
 
             // Periksa apakah ada data di dalam tabel peserta sebelum melanjutkan
             $sqlCheckData = "SELECT COUNT(*) AS total_peserta FROM peserta";
-            $resultCheck = mysqli_query($kon, $sqlCheckData);
+            $resultCheck = mysqli_query($conn, $sqlCheckData);
             $checkData = mysqli_fetch_assoc($resultCheck);
 
             // Jika data lebih dari 1 (karena kita akan menghapus satu peserta), lanjutkan operasi
             if ($checkData['total_peserta'] > 1) {
-                $stmt = $kon->prepare("DELETE FROM peserta WHERE id_peserta = ?");
+                $stmt = $conn->prepare("DELETE FROM peserta WHERE id_peserta = ?");
                 $stmt->bind_param("i", $id_peserta);
 
                 if ($stmt->execute()) {
@@ -70,7 +70,7 @@
                     $sqlMinMax = "SELECT MIN(tinggi_badan) AS min_tinggi, MAX(tinggi_badan) AS max_tinggi, 
                                          MIN(berat_badan) AS min_berat, MAX(berat_badan) AS max_berat 
                                   FROM peserta";
-                    $resultMinMax = mysqli_query($kon, $sqlMinMax);
+                    $resultMinMax = mysqli_query($conn, $sqlMinMax);
                     $minMax = mysqli_fetch_assoc($resultMinMax);
 
                     $minTinggi = $minMax['min_tinggi'];
@@ -80,7 +80,7 @@
 
                     // Loop through all participants and calculate nutrition status
                     $sqlPeserta = "SELECT * FROM peserta";
-                    $resultPeserta = mysqli_query($kon, $sqlPeserta);
+                    $resultPeserta = mysqli_query($conn, $sqlPeserta);
 
                     while ($peserta = mysqli_fetch_assoc($resultPeserta)) {
                         $tinggi = $peserta['tinggi_badan'];
@@ -112,7 +112,7 @@
 
                         // Update nutrition status in the database
                         $sqlUpdate = "UPDATE peserta SET status='$statusGizi' WHERE nik='{$peserta['nik']}'";
-                        mysqli_query($kon, $sqlUpdate);
+                        mysqli_query($conn, $sqlUpdate);
                     }
 
                     // Redirect to index.php
@@ -124,7 +124,7 @@
                 $stmt->close();
             } else {
                 $sql = "DELETE FROM peserta WHERE id_peserta='$id_peserta'";
-                mysqli_query($kon, $sql);
+                mysqli_query($conn, $sql);
                 header("Location: kelola.php");
             }
         }
@@ -225,12 +225,12 @@
                             $selesai = $_POST['tgl_selesai'];
                             
                             if($mulai!=null || $selesai!=null){
-                                $hasil = mysqli_query($kon, "SELECT * FROM peserta WHERE jadwal BETWEEN '".$mulai."' and '".$selesai."' ORDER BY id_peserta ASC");
+                                $hasil = mysqli_query($conn, "SELECT * FROM peserta WHERE jadwal BETWEEN '".$mulai."' and '".$selesai."' ORDER BY id_peserta ASC");
                             } else {
-                                $hasil = mysqli_query($kon, "SELECT * FROM peserta ORDER BY id_peserta ASC");
+                                $hasil = mysqli_query($conn, "SELECT * FROM peserta ORDER BY id_peserta ASC");
                             }
                         } else {
-                            $hasil = mysqli_query($kon, "SELECT * FROM peserta ORDER BY id_peserta ASC");
+                            $hasil = mysqli_query($conn, "SELECT * FROM peserta ORDER BY id_peserta ASC");
                         }
                         
                         $no = 0;
