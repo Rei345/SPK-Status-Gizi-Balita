@@ -3,7 +3,7 @@
     use PHPMailer\PHPMailer\SMTP;
     use PHPMailer\PHPMailer\Exception;
     
-    require('koneksi2.php');
+    require('koneksi.php');
     session_start();
     
     function sendmail_verify($email, $verify_token, $email_template){

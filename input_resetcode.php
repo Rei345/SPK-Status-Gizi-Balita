@@ -10,6 +10,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Input Code Reset</title>
+    <link rel="icon" href="profile.jpg" type="image/x-icon">
     <!-- Font Awesome Cdn link -->
     <link
       rel="stylesheet"

@@ -36,6 +36,7 @@
     ></script>
 
     <title>Kelola</title>
+    <link rel="icon" href="profile.jpg" type="image/x-icon">
 </head>
 
     <script>
@@ -170,7 +171,7 @@
                  
                 <span class="badge mb-1 rounded-pill text-bg-primary">selamat datang</span>
                 <h2 class="fw-bolder fs-6 text-body-emphasis"><?php echo $_SESSION['email'];?></h2>
-                <img src="profile.jpg" alt="">
+                <img src="polmed.png" alt="">
             </div>
         </div>
 
@@ -196,10 +197,10 @@
                     }
                     ?>  
             
-                    <form action="" class="row" method="post">
-                        
-                        <input type="date" name="tgl_mulai" class="form-control col ">
-                        
+                    <form action="" class="row mx-auto mx-1" method="post">
+                        Cari data dari : 
+                        <input type="date" name="tgl_mulai" class="form-control col mx-3 ">
+                         Sampai : 
                         <input type="date" name="tgl_selesai" class="form-control col ms-3">
                         <button type="submit" name="filter_tgl" class="btn btn-primary col-md-2 offset-md-1">Filter</button>
                     </form>
@@ -272,7 +273,7 @@
                         <div class="modal-body">
                             <input type="hidden" name="id_peserta" value="<?php echo $data['id_peserta']; ?>" />
                             <div class="input-box mb-3">
-                                <label for="jadwal" class="form-label">Waktu Entri</label>
+                                <label for="jadwal" class="form-label">Tanggal Pengukuran</label>
                                 <input class="form-control" type="date" id="jadwal" name="jadwal" value="<?php echo $data['jadwal']; ?>" required />
                             </div>
                             <div class="input-box mb-3">
@@ -321,13 +322,13 @@
     <div class="modal-dialog">
         <div class="modal-content">
         <div class="modal-header">
-            <h1 class="modal-title fs-5" id="staticBackdropLabel">Form Data Balita</h1>
+            <h1 class="modal-title fs-5" id="staticBackdropLabel">Create Data Balita</h1>
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <form id="giziForm" class="form" action="create_data.php" method="post">
         <div class="modal-body">
             <div class="input-box mb-3">
-                <label class="form-label">Waktu Entri</label>
+                <label class="form-label">Tanggal Pengukuran</label>
                 <input
                 class="form-control"
                 type="date"

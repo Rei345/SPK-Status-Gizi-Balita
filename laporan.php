@@ -23,7 +23,22 @@
     <link rel="stylesheet" href="datatables/datatables.css">
     <script src="datatables/datatables.js"></script>
 
+    <!-- Link untuk CSS Bootstrap -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
+      crossorigin="anonymous"
+    />
+    <!-- Script untuk Bootstrap -->
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+      crossorigin="anonymous"
+    ></script>
+
     <title>Laporan</title>
+    <link rel="icon" href="profile.jpg" type="image/x-icon">
 </head>
 
 <script>
@@ -106,18 +121,18 @@
             <div class="user--info">
                 <span class="badge mb-1 rounded-pill text-bg-primary">selamat datang</span>
                 <h2 class="fw-bolder fs-6 text-body-emphasis"><?php echo $_SESSION['email'];?></h2>
-                <img src="profile.jpg" alt="">
+                <img src="polmed.png" alt="">
             </div>
         </div>
         <div class="tabular--wrapper">
-            <h3 class="main--title">Data Balita</h3>
-            <form action="" class="row" method="post">
-                        
-                        <input type="date" name="tgl_mulai" class="form-control col ">
-                        
-                        <input type="date" name="tgl_selesai" class="form-control col ms-3">
-                        <button type="submit" name="filter_tgl" class="btn btn-primary col-md-2 offset-md-1">Filter</button>
-                    </form>
+            <h3 class="main--title fs-3">Data Balita</h3>
+                <form action="" class="row mx-auto mx-1" method="post">
+                    Cari data dari : 
+                    <input type="date" name="tgl_mulai" class="form-control col mx-3 ">
+                     Sampai : 
+                    <input type="date" name="tgl_selesai" class="form-control col ms-3">
+                    <button type="submit" name="filter_tgl" class="btn btn-primary col-md-2 offset-md-1">Filter</button>
+                </form>
             <div class="table-container">
                 <table id="dt" class="display mt-3" style="width:100%">
                     <thead>

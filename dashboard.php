@@ -17,6 +17,7 @@
     href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <title>Dashboard</title>
+    <link rel="icon" href="profile.jpg" type="image/x-icon">
 </head>
 <body>
 <div class="sidebar">
@@ -58,78 +59,48 @@
             <div class="user--info">
                 <span class="badge mb-1 rounded-pill text-bg-primary">selamat datang</span>
                 <h2 class="fw-bolder fs-6 text-body-emphasis"><?php echo $_SESSION['email'];?></h2>
-                <img src="profile.jpg" alt="">
+                <img src="polmed.png" alt="">
             </div>
         </div>
 
         <main>
             <div class="tabular--wrapper" style="width: 380px;">
-                <h4 class="main--content fw-semibold" style="text-align: center; border-top-right-radius: 10px; border-top-left-radius: 10px; color: dimgray;">Persentase Status Gizi</h4>
+                <h4 class="main--content fw-semibold" style="text-align: center; border-top-right-radius: 10px; border-top-left-radius: 10px; color: dimgray;">Persentase Total Gizi</h4>
                 <canvas id="myChart" class="main--content" style="height:30vh; width:330px; margin: 0 auto; max-height: 200px; border-bottom-right-radius: 10px; border-bottom-left-radius: 10px;"></canvas>
             </div>
             <div class="tabular--wrapper" style="width: 780px; margin-left: 20px;">
-                <canvas id="MyChart" class="main--content" style="height: 268px; width:740px; margin: 0 auto; border-radius: 10px;"></canvas>
+                <canvas id="ChartHu" class="main--content" style="height: 268px; width:740px; margin: 0 auto; border-radius: 10px;"></canvas>
             </div>
         </main>
         <main>
-            <div class="tabular--wrapper" style="width: 125vh;">
-                <canvas id="ChartHu" class="main--content" style="height: 36.5vh; border-radius: 10px;"></canvas>
+            <div class="tabular--wrapper" style="width: 154vh;">
+                <canvas id="MyChart" class="main--content" style="height: 38vh; border-radius: 10px;"></canvas>
             </div>
             
-            <div class="tabular--wrapper" style="width: 26.5vh; margin-left: 20px;">
-                <!-- Selector untuk memilih bulan dan tahun -->
-                 <div class="main--content" style="border-radius: 10px; width: 23vh; left: -10px;">
-                    <p style="text-align: center; color: dimgray; font-weight: 600;">Filter Data</p>
-                    <label for="bulan">Pilih Bulan:</label>
-                    <form action="" method="get">
-                        <select id="bulan">
-                            <option value="0">Januari</option>
-                            <option value="1">Februari</option>
-                            <option value="2">Maret</option>
-                            <option value="3">April</option>
-                            <option value="4">Mei</option>
-                            <option value="5">Juni</option>
-                            <option value="6">Juli</option>
-                            <option value="7">Agustus</option>
-                            <option value="8">September</option>
-                            <option value="9">Oktober</option>
-                            <option value="10">November</option>
-                            <option value="11">Desember</option>
-                        </select>
-                        <br><br>
-                        <label for="tahun">Pilih Tahun:</label>
-                        <select id="tahun">
-                            <option value="2023">2023</option>
-                            <option value="2024">2024</option>
-                            <option value="2025">2025</option>
-                        </select>
-                        <br><br><br>
-                        <div class="d-grid gap-2">
-                            <button type="submit" class="btn btn-info">Filter</button>
-                        </div>
-                    </form>
-                 </div>
-            </div>
         </main>
     </div>
 
 <!-- Grafik Pertama -->
 <script>
+const rawData = [
+    <?php
+    $statuses = ['Gizi Buruk', 'Gizi Kurang', 'Gizi Baik', 'Gizi Lebih', 'Obesitas'];
+    $dataPoints = [];
+    foreach ($statuses as $status) {
+        $qry = $conn->query("SELECT * FROM peserta WHERE status='$status'");
+        $dataPoints[] = $qry->num_rows;
+    }
+    echo implode(",", $dataPoints);
+    ?>
+];
+
+const total = rawData.reduce((acc, curr) => acc + curr, 0);
+
 const data = {
     labels: ['Gizi Buruk', 'Gizi Kurang', 'Gizi Baik', 'Gizi Lebih', 'Obesitas'],
     datasets: [{
         label: 'Status Gizi Balita',
-        data: [
-            <?php
-            $statuses = ['Gizi Buruk', 'Gizi Kurang', 'Gizi Baik', 'Gizi Lebih', 'Obesitas'];
-            $dataPoints = [];
-            foreach ($statuses as $status) {
-                $qry = $conn->query("SELECT * FROM peserta WHERE status='$status'");
-                $dataPoints[] = $qry->num_rows;
-            }
-            echo implode(",", $dataPoints);
-            ?>
-        ],
+        data: rawData.map(value => (value / total * 100).toFixed(2)), // Konversi ke persentase
         backgroundColor: [
             'rgb(255, 99, 132)',
             'rgb(54, 162, 235)',
@@ -147,12 +118,24 @@ const config = {
     options: {
         plugins: {
             legend: {
-                position: 'right',  // Menempatkan legend di sebelah kanan
+                position: 'right',
                 title: {
                     display: true,
                     text: 'Keterangan :',
                     font: {
                         size: 20
+                    }
+                }
+            },
+            tooltip: {
+                callbacks: {
+                    label: function(context) {
+                        let label = context.label || '';
+                        if (label) {
+                            label += ': ';
+                        }
+                        label += context.raw + '%'; // Menampilkan persentase
+                        return label;
                     }
                 }
             }
@@ -165,6 +148,7 @@ const myChart = new Chart(
     config
 );
 </script>
+
 
 <?php
         // Variabel bulan dan tahun (dapat diambil dari form input atau selector)
