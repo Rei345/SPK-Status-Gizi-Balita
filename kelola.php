@@ -363,7 +363,7 @@
                 <label class="form-label">Berat Badan (kg)</label>
                 <input
                 class="form-control"
-                type="text"
+                type="number"
                 id="berat_badan"
                 name="berat_badan"
                 step="0.01"
@@ -375,7 +375,7 @@
                 <label class="form-label">Tinggi Badan (cm)</label>
                 <input
                 class="form-control"
-                type="text"
+                type="number"
                 id="tinggi_badan"
                 name="tinggi_badan"
                 step="0.01"
@@ -392,6 +392,7 @@
                     id="check-male"
                     name="gender"
                     value="Laki-Laki"
+                    required
                     />
                     <label for="check-male">Laki-Laki</label>
                 </div>

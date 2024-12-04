@@ -64,16 +64,16 @@
         </div>
 
         <main>
-            <div class="tabular--wrapper" style="width: 380px;">
+            <div class="tabular--wrapper" style="width: 370px;">
                 <h4 class="main--content fw-semibold" style="text-align: center; border-top-right-radius: 10px; border-top-left-radius: 10px; color: dimgray;">Persentase Total Gizi</h4>
-                <canvas id="myChart" class="main--content" style="height:30vh; width:330px; margin: 0 auto; max-height: 200px; border-bottom-right-radius: 10px; border-bottom-left-radius: 10px;"></canvas>
+                <canvas id="myChart" class="main--content" style="height:30vh; width:320px; margin: 0 auto; max-height: 200px; border-bottom-right-radius: 10px; border-bottom-left-radius: 10px;"></canvas>
             </div>
             <div class="tabular--wrapper" style="width: 780px; margin-left: 20px;">
                 <canvas id="ChartHu" class="main--content" style="height: 268px; width:740px; margin: 0 auto; border-radius: 10px;"></canvas>
             </div>
         </main>
         <main>
-            <div class="tabular--wrapper" style="width: 154vh;">
+            <div class="tabular--wrapper" style="width: 151.5vh;">
                 <canvas id="MyChart" class="main--content" style="height: 38vh; border-radius: 10px;"></canvas>
             </div>
             
